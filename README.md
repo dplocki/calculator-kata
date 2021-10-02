@@ -1,1 +1,3 @@
-# calculator-kata
+# Calculator kata
+
+Written in Python.
