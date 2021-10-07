@@ -20,6 +20,9 @@ def calculate(value):
 def generate_int():
     return random.randrange(0, 99999)
 
+def generate_operation():
+    return random.choice(['-', '+', '*', '/'])
+
 class CalculatorTest(unittest.TestCase):
 
     def test_empty_string_should_return_zero(self):
@@ -47,19 +50,43 @@ class CalculatorTest(unittest.TestCase):
         actual = calculate(f'{number1} - {number2}')
         self.assertEqual(actual, expected)
 
-class RPN_Parser():
+class PolishNotationParser():
     
-    def parse(string):
-        return []
+    def parse(self, value):
+        if value == '':
+            return []
 
-class ReversPolishNotationParserTests(unittest.TestCase):
+        tokens = value.split()
+        if len(tokens) == 1:
+            return [int(tokens[0])]
+
+        return [tokens[1], int(tokens[0]), int(tokens[2])]
+
+class PolishNotationParserTests(unittest.TestCase):
 
     def setUp(self):
-        self.parser = RPN_Parser()
+        self.parser = PolishNotationParser()
 
     def test_empty_string(self):
-        actual = self.parser.parse()
+        actual = self.parser.parse('')
         expected = []
+
+        self.assertEqual(actual, expected)
+
+    def test_single_number_string(self):
+        number = generate_int()
+        actual = self.parser.parse(str(number))
+
+        self.assertEqual(actual, [number])
+
+    def test_single_operation(self):
+        number1 = generate_int()
+        number2 = generate_int()
+        operation = generate_operation()
+
+        expected = [operation, number1, number2]
+        
+        actual = self.parser.parse(f'{number1} {operation} {number2}')
 
         self.assertEqual(actual, expected)
 
