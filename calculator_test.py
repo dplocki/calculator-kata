@@ -47,10 +47,21 @@ class CalculatorTest(unittest.TestCase):
         actual = calculate(f'{number1} - {number2}')
         self.assertEqual(actual, expected)
 
-class ReversPolishNotationParserTests(unittest.TestCase):
+class RPN_Parser():
     
-    def test_single_number(self):
-        pass
+    def parse(string):
+        return []
+
+class ReversPolishNotationParserTests(unittest.TestCase):
+
+    def setUp(self):
+        self.parser = RPN_Parser()
+
+    def test_empty_string(self):
+        actual = self.parser.parse()
+        expected = []
+
+        self.assertEqual(actual, expected)
 
 if __name__ == '__main__':
     unittest.main()
