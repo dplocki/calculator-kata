@@ -13,13 +13,12 @@ def calculate(value):
 
     if '-' in value:
         tokens = value.split('-')
-        print(value, tokens)
         return reduce(operator.sub, map(int, tokens))
 
     return int(value)
 
 def generate_int():
-    return random.randrange(-99999, 99999)
+    return random.randrange(0, 99999)
 
 class CalculatorTest(unittest.TestCase):
 
@@ -40,7 +39,6 @@ class CalculatorTest(unittest.TestCase):
         actual = calculate(f'{number1} + {number2}')
         self.assertEqual(actual, expected)
 
-    @unittest.skip("Temporary disabled for new parser apprach")
     def test_single_subtraction_operation(self):
         number1 = generate_int()
         number2 = generate_int()
@@ -48,6 +46,11 @@ class CalculatorTest(unittest.TestCase):
 
         actual = calculate(f'{number1} - {number2}')
         self.assertEqual(actual, expected)
+
+class ReversPolishNotationParserTests(unittest.TestCase):
+    
+    def test_single_number(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()
