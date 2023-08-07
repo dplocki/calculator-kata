@@ -28,3 +28,12 @@ class CalculatorTest(unittest.TestCase):
 
         actual = calculate(f"{number1} - {number2}")
         self.assertEqual(actual, expected)
+
+    def test_two_add_operation(self):
+        number1 = generate_int()
+        number2 = generate_int()
+        number3 = generate_int()
+        expected = number1 + number2 + number3
+
+        actual = calculate(f"{number1} + {number2} + {number3}")
+        self.assertEqual(actual, expected)
