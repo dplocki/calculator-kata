@@ -1,17 +1,21 @@
-import operator
 from functools import reduce
+import re
 
 
-def calculate(value):
+def calculate(value: str):
     if value == "":
         return 0
 
-    if "+" in value:
-        tokens = value.split("+")
-        return sum(map(int, tokens))
+    operator = "+"
+    result = 0
 
-    if "-" in value:
-        tokens = value.split("-")
-        return reduce(operator.sub, map(int, tokens))
+    for token in filter(lambda token: token.strip() != '', re.split('(\W)', value)):
+        if token in "-+":
+            operator = token
+        else:
+            if operator == "+":
+                result += int(token)
+            elif operator == "-":
+                result -= int(token)
 
-    return int(value)
+    return result
