@@ -1,10 +1,14 @@
 import re
-from typing import Iterable, Union
+from typing import Generator, Iterable, Union
+
+
+class CalculateException(Exception):
+    pass
 
 
 def parse_input_string_to_tokens(
     input_value: str,
-) -> Iterable[Union[int, str], None, None]:
+) -> Generator[Union[int, str], None, None]:
     yield from filter(lambda token: token.strip() != "", re.split("(\W)", input_value))
 
 
@@ -17,11 +21,16 @@ def calculate(input_value: str) -> int:
 
     for token in parse_input_string_to_tokens(input_value):
         if token in "-+":
+            if operator is not None:
+                raise CalculateException(f'Expected operator, got: {token}')
+
             operator = token
         else:
             if operator == "+":
                 result += int(token)
             elif operator == "-":
                 result -= int(token)
+
+            operator = None
 
     return result
