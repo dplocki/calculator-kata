@@ -30,6 +30,8 @@ def calculate(input_value: str) -> int:
                 result += int(token)
             elif operator == "-":
                 result -= int(token)
+            else:
+                raise CalculateException(f'Expected number, got: {token}')
 
             operator = None
 
