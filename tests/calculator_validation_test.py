@@ -17,3 +17,10 @@ class CalculatorValidationTest(unittest.TestCase):
 
         with self.assertRaises(CalculateException):
             calculate(f"{number1} + {number2} {number3}")
+
+    def test_throw_error_when_provided_nonexisting_operator(self):
+        number1 = generate_int()
+        number2 = generate_int()
+
+        with self.assertRaises(CalculateException):
+            calculate(f"{number1} $ {number2}")
