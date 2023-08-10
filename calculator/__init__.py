@@ -22,7 +22,7 @@ def calculate(input_value: str) -> int:
     for token in parse_input_string_to_tokens(input_value):
         if token in "-+":
             if operator is not None:
-                raise CalculateException(f'Expected operator, got: {token}')
+                raise CalculateException(f"Expected operator, got: {token}")
 
             operator = token
         else:
@@ -31,7 +31,7 @@ def calculate(input_value: str) -> int:
             elif operator == "-":
                 result -= int(token)
             else:
-                raise CalculateException(f'Expected number, got: {token}')
+                raise CalculateException(f"Expected number, got: {token}")
 
             operator = None
 
