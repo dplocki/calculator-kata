@@ -33,7 +33,6 @@ class CalculatorTest(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
-
     def test_single_subtraction_operation(self):
         number1 = generate_int()
         number2 = generate_int()

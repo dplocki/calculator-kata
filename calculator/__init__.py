@@ -1,5 +1,5 @@
 import re
-from typing import Generator, Iterable, Union
+from typing import Generator, Union
 
 
 class CalculateException(Exception):
