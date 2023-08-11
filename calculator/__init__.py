@@ -8,7 +8,7 @@ class CalculateException(Exception):
 
 def parse_input_string_to_tokens(
     input_value: str,
-) -> Generator[Union[int, str], None, None]:
+) -> Generator[str, None, None]:
     yield from filter(lambda token: token.strip() != "", re.split("(\W)", input_value))
 
 
