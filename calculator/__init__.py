@@ -25,16 +25,16 @@ def calculate(input_value: str) -> int:
                 raise CalculateException(f"Expected operator, got: {token}")
 
             operator = token
+            continue
+        elif operator == "+":
+            result += int(token)
+        elif operator == "-":
+            result -= int(token)
+        elif operator == "*":
+            result *= int(token)
         else:
-            if operator == "+":
-                result += int(token)
-            elif operator == "-":
-                result -= int(token)
-            elif operator == "*":
-                result *= int(token)
-            else:
-                raise CalculateException(f"Expected number, got: {token}")
+            raise CalculateException(f"Expected number, got: {token}")
 
-            operator = None
+        operator = None
 
     return result
