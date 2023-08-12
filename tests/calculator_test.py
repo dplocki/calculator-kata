@@ -15,40 +15,30 @@ class CalculatorTest(unittest.TestCase):
         self.assertEqual(actual, 0)
 
     def test_single_number_return_that_number(self):
-        operation = OperationNode(generate_int())
-        value = operation_node_to_standard(operation)
-        expected = operation_node_to_result(operation)
-
-        actual = calculate(value)
-
-        self.assertEqual(actual, expected, f"{value} != {expected}")
+        self._run_test(OperationNode(generate_int()))
 
     def test_two_add_operation(self):
-        operation = OperationNode(
-            "+", generate_int(), OperationNode("+", generate_int(), generate_int())
+        self._run_test(
+            OperationNode(
+                "+", generate_int(), OperationNode("+", generate_int(), generate_int())
+            )
         )
-        value = operation_node_to_standard(operation)
-        expected = operation_node_to_result(operation)
-
-        actual = calculate(value)
-
-        self.assertEqual(actual, expected, f"{value} != {expected}")
 
     def test_add_then_minus_operation(self):
-        operation = OperationNode(
-            "+", generate_int(), OperationNode("-", generate_int(), generate_int())
+        self._run_test(
+            OperationNode(
+                "+", generate_int(), OperationNode("-", generate_int(), generate_int())
+            )
         )
-        value = operation_node_to_standard(operation)
-        expected = operation_node_to_result(operation)
-
-        actual = calculate(value)
-
-        self.assertEqual(actual, expected, f"{value} != {expected}")
 
     def test_plus_and_multiple_operation(self):
-        operation = OperationNode(
-            "+", generate_int(), OperationNode("*", generate_int(), generate_int())
+        self._run_test(
+            OperationNode(
+                "+", generate_int(), OperationNode("*", generate_int(), generate_int())
+            )
         )
+
+    def _run_test(self, operation):
         value = operation_node_to_standard(operation)
         expected = operation_node_to_result(operation)
 
