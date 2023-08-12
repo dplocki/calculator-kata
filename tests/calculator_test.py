@@ -44,4 +44,4 @@ class CalculatorTest(unittest.TestCase):
 
         actual = calculate(value)
 
-        self.assertEqual(actual, expected, f"{value} != {expected}")
+        self.assertEqual(actual, expected, f"[the operation: {value}]")
