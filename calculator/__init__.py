@@ -27,7 +27,7 @@ def calculate(input_value: str) -> int:
                 raise CalculateException(f"Expected operator, got: {token}")
 
             operators.append(token)
-            wasMultiplication = token == '*'
+            wasMultiplication = token == "*"
             expectedNumber = True
         elif token.isdigit():
             if not expectedNumber:
@@ -52,9 +52,9 @@ def calculate(input_value: str) -> int:
         second = numbers.pop()
         first = numbers.pop()
 
-        if operator == '-':
+        if operator == "-":
             numbers.append(first - second)
-        elif operator == '+':
+        elif operator == "+":
             numbers.append(first + second)
 
     return numbers[0]
