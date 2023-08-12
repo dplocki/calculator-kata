@@ -16,25 +16,45 @@ def calculate(input_value: str) -> int:
     if input_value == "":
         return 0
 
-    operator = "+"
-    result = 0
+    operators = []
+    numbers = []
+    wasMultiplication = False
+    expectedNumber = True
 
     for token in parse_input_string_to_tokens(input_value):
         if token in "-+*":
-            if operator is not None:
+            if expectedNumber:
                 raise CalculateException(f"Expected operator, got: {token}")
 
-            operator = token
-            continue
-        elif operator == "+":
-            result += int(token)
-        elif operator == "-":
-            result -= int(token)
-        elif operator == "*":
-            result *= int(token)
+            operators.append(token)
+            wasMultiplication = token == '*'
+            expectedNumber = True
+        elif token.isdigit():
+            if not expectedNumber:
+                raise CalculateException(f"Expected number, got: {token}")
+
+            value = int(token)
+            if wasMultiplication:
+                first = numbers.pop()
+                operators.pop()
+
+                numbers.append(first * value)
+                wasMultiplication = False
+            else:
+                numbers.append(value)
+
+            expectedNumber = False
         else:
-            raise CalculateException(f"Expected number, got: {token}")
+            raise CalculateException(f"Unexpected token, got: {token}")
 
-        operator = None
+    while operators:
+        operator = operators.pop()
+        second = numbers.pop()
+        first = numbers.pop()
 
-    return result
+        if operator == '-':
+            numbers.append(first - second)
+        elif operator == '+':
+            numbers.append(first + second)
+
+    return numbers[0]

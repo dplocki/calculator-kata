@@ -62,3 +62,14 @@ class CalculatorTest(unittest.TestCase):
         actual = calculate(value)
 
         self.assertEqual(actual, expected, f"{value} != {expected}")
+
+    def test_plus_and_multiple_operation(self):
+        number1 = generate_int()
+        number2 = generate_int()
+        number3 = generate_int()
+        expected = number1 + number2 * number3
+        value = f"{number1} + {number2} * {number3}"
+
+        actual = calculate(value)
+
+        self.assertEqual(actual, expected, f"{value} != {expected}")
