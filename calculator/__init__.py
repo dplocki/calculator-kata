@@ -22,7 +22,7 @@ def calculate(input_value: str) -> int:
     expectedNumber = True
 
     for token in parse_input_string_to_tokens(input_value):
-        if token in "-+*":
+        if token in "-+*^":
             if expectedNumber:
                 raise CalculateException(f"Expected operator, got: {token}")
 
@@ -56,5 +56,7 @@ def calculate(input_value: str) -> int:
             numbers.append(first - second)
         elif operator == "+":
             numbers.append(first + second)
+        elif operator == "^":
+            numbers.append(first ** second)
 
     return numbers[0]
