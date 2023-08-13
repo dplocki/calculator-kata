@@ -1,9 +1,9 @@
 import random
-from typing import Union
+from calculator import OPERATORS, calculate
 
 
-def generate_int():
-    return random.randrange(0, 99999)
+def generate_int(maximum=99999):
+    return random.randrange(1, maximum)
 
 
 def generate_operation():
@@ -49,16 +49,6 @@ def operation_node_to_result(node: OperationNode) -> int:
     if type(node.root) == int:
         return node.root
 
-    left = operation_node_to_result(node.left) if node.left != None else ""
-    right = operation_node_to_result(node.right) if node.right != None else ""
-
-    if node.root == "+":
-        return left + right
-    elif node.root == "-":
-        return left - right
-    elif node.root == "*":
-        return left * right
-    elif node.root == "^":
-        return left ** right
-
-    raise Exception(f"Unknown {node.root}")
+    return OPERATORS[node.root].function(
+        operation_node_to_result(node.left), operation_node_to_result(node.right)
+    )

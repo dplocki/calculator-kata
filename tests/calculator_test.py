@@ -41,7 +41,22 @@ class CalculatorTest(unittest.TestCase):
     def test_plus_and_power_operation(self):
         self._run_test(
             OperationNode(
-                generate_int(), "+", OperationNode(generate_int(), "^", generate_int())
+                generate_int(),
+                "+",
+                OperationNode(generate_int(10), "^", generate_int(10)),
+            )
+        )
+
+    def test_plus_power_multi_operation(self):
+        self._run_test(
+            OperationNode(
+                generate_int(),
+                "+",
+                OperationNode(
+                    OperationNode(generate_int(10), "^", generate_int(10)),
+                    "*",
+                    generate_int(100),
+                ),
             )
         )
 
@@ -50,5 +65,5 @@ class CalculatorTest(unittest.TestCase):
         expected = operation_node_to_result(operation)
 
         actual = calculate(value)
-
+        print(value, expected, actual)
         self.assertEqual(actual, expected, f"[the operation: {value}]")
