@@ -24,7 +24,7 @@ class CalculateException(Exception):
     pass
 
 
-def calc(tokens) -> Union[int, int]:
+def calculate_postfix_notation(tokens) -> Union[int, int]:
     stack = []
 
     for token in tokens:
@@ -38,7 +38,7 @@ def calc(tokens) -> Union[int, int]:
     return stack.pop()
 
 
-def convert_tokens_into_infix_notation(tokens):
+def convert_infix_into_postfix_notation(tokens):
     operators = []
 
     for token in tokens:
@@ -54,31 +54,31 @@ def convert_tokens_into_infix_notation(tokens):
         yield operators.pop()
 
 
+def split_input_string_to_tokens(
+    input_value: str,
+) -> Generator[str, None, None]:
+    yield from filter(lambda token: token.strip() != "", re.split("(\W)", input_value))
+
+
+def parse_tokens(tokens):
+    expectedNumber = True
+    for token in tokens:
+        if token in OPERATORS and not expectedNumber:
+            yield OPERATORS[token]
+            expectedNumber = True
+        elif token.isdigit() and expectedNumber:
+            yield int(token)
+            expectedNumber = False
+        else:
+            raise CalculateException(f"Unexpected token, got: {token}")
+
+
 def calculate(input_value: str) -> int:
-    def split_input_string_to_tokens(
-        input_value: str,
-    ) -> Generator[str, None, None]:
-        yield from filter(
-            lambda token: token.strip() != "", re.split("(\W)", input_value)
-        )
-
-    def parse_tokens(tokens):
-        expectedNumber = True
-        for token in tokens:
-            if token in OPERATORS and not expectedNumber:
-                yield OPERATORS[token]
-                expectedNumber = True
-            elif token.isdigit() and expectedNumber:
-                yield int(token)
-                expectedNumber = False
-            else:
-                raise CalculateException(f"Unexpected token, got: {token}")
-
     if input_value == "":
         return 0
 
-    return calc(
-        convert_tokens_into_infix_notation(
+    return calculate_postfix_notation(
+        convert_infix_into_postfix_notation(
             parse_tokens(split_input_string_to_tokens(input_value))
         )
     )
