@@ -38,6 +38,13 @@ class CalculatorTest(unittest.TestCase):
             )
         )
 
+    def test_plus_and_power_operation(self):
+        self._run_test(
+            OperationNode(
+                "+", generate_int(), OperationNode("^", generate_int(), generate_int())
+            )
+        )
+
     def _run_test(self, operation):
         value = operation_node_to_standard(operation)
         expected = operation_node_to_result(operation)

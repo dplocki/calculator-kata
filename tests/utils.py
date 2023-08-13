@@ -58,5 +58,7 @@ def operation_node_to_result(node: OperationNode) -> int:
         return left - right
     elif node.root == "*":
         return left * right
+    elif node.root == "^":
+        return left ** right
 
     raise Exception(f"Unknown {node.root}")
