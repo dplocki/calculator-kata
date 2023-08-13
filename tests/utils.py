@@ -1,5 +1,6 @@
+from dataclasses import dataclass
 import random
-from calculator import OPERATORS, calculate
+from calculator import OPERATORS
 
 
 def generate_int(maximum=99999):
@@ -10,23 +11,11 @@ def generate_operation():
     return random.choice(["-", "+", "*", "/"])
 
 
+@dataclass
 class OperationNode:
-    def __init__(self, left=None, root=None, right=None) -> None:
-        self.left = left
-        self.root = root
-        self.right = right
-
-    def set_root(self, value):
-        self.root = value
-
-    def set_left(self, value):
-        self.left = value
-
-    def set_right(self, value):
-        self.right = value
-
-    def __repr__(self) -> str:
-        return f"Operation: {self.left} {self.root} {self.right}"
+    left: None | type["OperationNode"] | int
+    root: str | int
+    right: None | type["OperationNode"] | int
 
 
 def operation_node_to_standard(node: OperationNode) -> str:
@@ -49,4 +38,6 @@ def operation_node_to_result(node: OperationNode) -> int:
     if type(node.root) == int:
         return node.root
 
-    return OPERATORS[node.root].function(operation_node_to_result(node.left), operation_node_to_result(node.right))
+    return OPERATORS[node.root].function(
+        operation_node_to_result(node.left), operation_node_to_result(node.right)
+    )
