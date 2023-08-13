@@ -15,33 +15,33 @@ class CalculatorTest(unittest.TestCase):
         self.assertEqual(actual, 0)
 
     def test_single_number_return_that_number(self):
-        self._run_test(OperationNode(generate_int()))
+        self._run_test(OperationNode(None, generate_int(), None))
 
     def test_two_add_operation(self):
         self._run_test(
             OperationNode(
-                "+", generate_int(), OperationNode("+", generate_int(), generate_int())
+                generate_int(), "+", OperationNode(generate_int(), "+", generate_int())
             )
         )
 
     def test_add_then_minus_operation(self):
         self._run_test(
             OperationNode(
-                "+", generate_int(), OperationNode("-", generate_int(), generate_int())
+                generate_int(), "+", OperationNode(generate_int(), "-", generate_int())
             )
         )
 
     def test_plus_and_multiple_operation(self):
         self._run_test(
             OperationNode(
-                "+", generate_int(), OperationNode("*", generate_int(), generate_int())
+                generate_int(), "+", OperationNode(generate_int(), "*", generate_int())
             )
         )
 
     def test_plus_and_power_operation(self):
         self._run_test(
             OperationNode(
-                "+", generate_int(), OperationNode("^", generate_int(), generate_int())
+                generate_int(), "+", OperationNode(generate_int(), "^", generate_int())
             )
         )
 

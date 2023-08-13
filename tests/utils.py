@@ -11,9 +11,9 @@ def generate_operation():
 
 
 class OperationNode:
-    def __init__(self, root=None, left=None, right=None) -> None:
-        self.root = root
+    def __init__(self, left=None, root=None, right=None) -> None:
         self.left = left
+        self.root = root
         self.right = right
 
     def set_root(self, value):
