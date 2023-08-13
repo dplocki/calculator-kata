@@ -49,6 +49,4 @@ def operation_node_to_result(node: OperationNode) -> int:
     if type(node.root) == int:
         return node.root
 
-    return OPERATORS[node.root].function(
-        operation_node_to_result(node.left), operation_node_to_result(node.right)
-    )
+    return OPERATORS[node.root].function(operation_node_to_result(node.left), operation_node_to_result(node.right))

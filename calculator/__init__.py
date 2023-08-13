@@ -1,15 +1,13 @@
+from dataclasses import dataclass
 import operator
 import re
-from typing import Generator, Union
+from typing import Generator, Union, Callable
 
 
+@dataclass
 class Operator:
-    def __init__(self, level, function) -> None:
-        self.level = level
-        self.function = function
-
-    def __repr__(self) -> str:
-        return str(self.function)
+    level: int
+    function: Callable
 
 
 OPERATORS = {
