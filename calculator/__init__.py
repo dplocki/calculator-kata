@@ -79,6 +79,8 @@ def split_input_string_to_tokens(
 
 def parse_tokens(tokens):
     expectedNumber = True
+    bracket_counter = 0
+
     for token in tokens:
         if token in OPERATORS and not expectedNumber:
             yield OPERATORS[token]
@@ -87,9 +89,14 @@ def parse_tokens(tokens):
             yield int(token)
             expectedNumber = False
         elif token in BRACKETS:
-            yield BRACKETS[token]
+            bracket = BRACKETS[token]
+            yield bracket
+            bracket_counter += 1 if bracket.opening else -1
         else:
             raise CalculateException(f"Unexpected token, got: {token}")
+
+    if bracket_counter != 0:
+        raise CalculateException(f"Unexpected token, got: {token}")
 
 
 def calculate(input_value: str) -> int:
