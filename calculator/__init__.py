@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import operator
 import re
-from typing import Generator, Union, Callable
+from typing import Generator, Iterable, Union, Callable
 
 
 @dataclass
@@ -31,7 +31,7 @@ class CalculateException(Exception):
     pass
 
 
-def calculate_postfix_notation(tokens) -> Union[int, int]:
+def calculate_postfix_notation(tokens: Iterable[int | Operator | Bracket]) -> int:
     stack = []
 
     for token in tokens:
@@ -45,7 +45,9 @@ def calculate_postfix_notation(tokens) -> Union[int, int]:
     return stack.pop()
 
 
-def convert_infix_into_postfix_notation(tokens):
+def convert_infix_into_postfix_notation(
+    tokens: Iterable[int | Operator | Bracket],
+) -> Generator[int | Operator | Bracket, None, None]:
     operators = []
 
     for token in tokens:
@@ -77,7 +79,9 @@ def split_input_string_to_tokens(
     yield from filter(lambda token: token.strip() != "", re.split("(\W)", input_value))
 
 
-def parse_tokens(tokens):
+def parse_tokens(
+    tokens: Iterable[str],
+) -> Generator[int | Operator | Bracket, None, None]:
     expectedNumber = True
     bracket_counter = 0
 
