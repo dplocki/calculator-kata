@@ -92,7 +92,9 @@ def parse_tokens(tokens):
             bracket = BRACKETS[token]
 
             if bracket_counter == 0 and not bracket.opening:
-                raise CalculateException(f"Unexpected token, got: {token}")
+                raise CalculateException(
+                    "Closing bracket, but there was no open before"
+                )
 
             yield bracket
             bracket_counter += 1 if bracket.opening else -1
@@ -100,7 +102,7 @@ def parse_tokens(tokens):
             raise CalculateException(f"Unexpected token, got: {token}")
 
     if bracket_counter != 0:
-        raise CalculateException(f"Unexpected token, got: {token}")
+        raise CalculateException("Brackets (open/close) are not matching")
 
 
 def calculate(input_value: str) -> int:
