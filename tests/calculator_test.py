@@ -60,6 +60,15 @@ class CalculatorTest(unittest.TestCase):
             )
         )
 
+    def test_operation_with_brackets(self):
+        self._run_test(
+            OperationNode(
+                OperationNode(generate_int(), "+", generate_int()),
+                "*",
+                OperationNode(generate_int(), "+", generate_int()),
+            )
+        )
+
     def _run_test(self, operation):
         value = operation_node_to_standard(operation)
         expected = operation_node_to_result(operation)

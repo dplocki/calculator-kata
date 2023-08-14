@@ -10,12 +10,21 @@ class Operator:
     function: Callable
 
 
+@dataclass
+class Bracket:
+    opening: bool
+    level: int = 0
+
+
 OPERATORS = {
     "+": Operator(1, operator.add),
     "-": Operator(1, operator.sub),
     "*": Operator(2, operator.mul),
     "^": Operator(3, operator.pow),
 }
+
+
+BRACKETS = {"(": Bracket(True), ")": Bracket(False)}
 
 
 class CalculateException(Exception):
@@ -42,6 +51,16 @@ def convert_infix_into_postfix_notation(tokens):
     for token in tokens:
         if type(token) == int:
             yield token
+        elif type(token) == Bracket:
+            if token.opening:
+                operators.append(token)
+            else:
+                while len(operators) > 0:
+                    token = operators.pop()
+                    if type(token) == Bracket and token.opening:
+                        break
+
+                    yield token
         else:
             while len(operators) > 0 and operators[-1].level > token.level:
                 yield operators.pop()
@@ -67,6 +86,8 @@ def parse_tokens(tokens):
         elif token.isdigit() and expectedNumber:
             yield int(token)
             expectedNumber = False
+        elif token in BRACKETS:
+            yield BRACKETS[token]
         else:
             raise CalculateException(f"Unexpected token, got: {token}")
 
