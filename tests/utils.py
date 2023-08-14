@@ -18,17 +18,22 @@ class OperationNode:
     right: None | type["OperationNode"] | int
 
 
-def operation_node_to_standard(node: OperationNode) -> str:
+def operation_node_to_standard(node: OperationNode, previous_operator_level = -1) -> str:
     if type(node) == int:
         return str(node)
 
     if type(node.root) == int:
         return str(node.root)
 
-    left = operation_node_to_standard(node.left) if node.left != None else ""
-    right = operation_node_to_standard(node.right) if node.right != None else ""
+    operator_level = OPERATORS[node.root].level
+    left = operation_node_to_standard(node.left, operator_level) if node.left != None else ""
+    right = operation_node_to_standard(node.right, operator_level) if node.right != None else ""
+    result = f"{left} {node.root} {right}"
 
-    return f"{left} {node.root} {right}"
+    if operator_level < previous_operator_level:
+        result = f'({result})'
+
+    return result
 
 
 def operation_node_to_result(node: OperationNode) -> int:
