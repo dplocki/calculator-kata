@@ -90,6 +90,10 @@ def parse_tokens(tokens):
             expectedNumber = False
         elif token in BRACKETS:
             bracket = BRACKETS[token]
+
+            if bracket_counter == 0 and not bracket.opening:
+                raise CalculateException(f"Unexpected token, got: {token}")
+
             yield bracket
             bracket_counter += 1 if bracket.opening else -1
         else:

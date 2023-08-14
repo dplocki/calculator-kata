@@ -38,3 +38,10 @@ class CalculatorValidationTest(unittest.TestCase):
 
         with self.assertRaises(CalculateException):
             calculate(f"{number1} + ({number2}")
+
+    def test_throw_error_when_provided_not_correct_brackets(self):
+        number1 = generate_int()
+        number2 = generate_int()
+
+        with self.assertRaises(CalculateException):
+            calculate(f"){number1} + ({number2}")
