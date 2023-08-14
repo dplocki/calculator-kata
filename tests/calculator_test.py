@@ -14,6 +14,13 @@ class CalculatorTest(unittest.TestCase):
 
         self.assertEqual(actual, 0)
 
+    def test_number_in_bracket(self):
+        number = generate_int()
+
+        actual = calculate(f"({number})")
+
+        self.assertEqual(actual, number)
+
     def test_single_number_return_that_number(self):
         self._run_test(OperationNode(None, generate_int(), None))
 
