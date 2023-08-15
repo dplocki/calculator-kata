@@ -69,13 +69,20 @@ def parse_tokens(
 ) -> Generator[int | Operator | Bracket, None, None]:
     expectedNumber = True
     bracket_counter = 0
+    negative = False
 
     for token in tokens:
         if token in OPERATORS and not expectedNumber:
             yield OPERATORS[token]
             expectedNumber = True
+        elif token == "-" and expectedNumber:
+            negative = True
         elif token.isdigit() and expectedNumber:
-            yield int(token)
+            number = int(token)
+            if negative:
+                number *= -1
+                negative = False
+            yield number
             expectedNumber = False
         elif token in BRACKETS:
             bracket = BRACKETS[token]
