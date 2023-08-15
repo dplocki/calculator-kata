@@ -1,4 +1,4 @@
-# 🧮 Calculator kata
+# Calculator kata
 
 ![GitHub](https://img.shields.io/github/license/dplocki/calculator-kata)
 ![Python 3](https://img.shields.io/badge/python-3.11-informational)
