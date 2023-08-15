@@ -81,5 +81,4 @@ class CalculatorTest(unittest.TestCase):
         expected = operation_node_to_result(operation)
 
         actual = calculate(value)
-        print(value, expected, actual)
         self.assertEqual(actual, expected, f"[the operation: {value}]")
