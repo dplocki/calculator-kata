@@ -22,6 +22,7 @@ OPERATORS = {
     "+": Operator(1, operator.add),
     "-": Operator(1, operator.sub),
     "*": Operator(2, operator.mul),
+    "/": Operator(2, operator.truediv),
     "^": Operator(3, operator.pow),
 }
 

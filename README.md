@@ -15,7 +15,7 @@ This one is the calculator, which is parsing the input (string) as infix notated
 ## ✔️ Functionality
 
 * adding, subtraction
-* multiple
+* multiple, division
 * power
 * brackets (the round one only)
 * simple validation

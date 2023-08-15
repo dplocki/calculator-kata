@@ -15,6 +15,15 @@ class CalculatorSupportedOperationsTest(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_single_subtraction_operation(self):
+        number1 = generate_int()
+        number2 = generate_int()
+        expected = number1 - number2
+
+        actual = calculate(f"{number1} - {number2}")
+
+        self.assertEqual(actual, expected)
+
     def test_single_multiply_operation(self):
         number1 = generate_int()
         number2 = generate_int()
@@ -24,12 +33,12 @@ class CalculatorSupportedOperationsTest(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
-    def test_single_subtraction_operation(self):
+    def test_single_division_operation(self):
         number1 = generate_int()
         number2 = generate_int()
-        expected = number1 - number2
+        expected = number1 / number2
 
-        actual = calculate(f"{number1} - {number2}")
+        actual = calculate(f"{number1} / {number2}")
 
         self.assertEqual(actual, expected)
 
