@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import random
-from calculator import OPERATORS
+from calculator.parsing import OPERATORS
 
 
 def generate_int(maximum=99999):

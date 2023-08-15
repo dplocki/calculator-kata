@@ -1,5 +1,5 @@
 import unittest
-from calculator import calculate
+from calculator.calculate import calculate
 from utils import (
     OperationNode,
     generate_int,
