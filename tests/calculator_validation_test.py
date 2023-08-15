@@ -45,3 +45,9 @@ class CalculatorValidationTest(unittest.TestCase):
 
         with self.assertRaises(CalculateException):
             calculate(f"){number1} + ({number2}")
+
+    def test_throw_error_on_division_by_zero(self):
+        number = generate_int()
+
+        with self.assertRaises(ZeroDivisionError):
+            calculate(f"{number} / 0")
