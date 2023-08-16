@@ -10,6 +10,7 @@ from calculator.exceptions import CalculateException
 class Operator:
     level: int
     function: Callable
+    parameters_count: int = 2
 
 
 @dataclass
@@ -24,6 +25,7 @@ OPERATORS = {
     "*": Operator(2, operator.mul),
     "/": Operator(2, operator.truediv),
     "^": Operator(3, operator.pow),
+    "neg": Operator(4, operator.neg, 1)
 }
 
 
@@ -69,20 +71,15 @@ def parse_tokens(
 ) -> Generator[int | Operator | Bracket, None, None]:
     expectedNumber = True
     bracket_counter = 0
-    negative = False
 
     for token in tokens:
         if token in OPERATORS and not expectedNumber:
             yield OPERATORS[token]
             expectedNumber = True
         elif token == "-" and expectedNumber:
-            negative = True
+            yield OPERATORS["neg"]
         elif token.isdigit() and expectedNumber:
-            number = int(token)
-            if negative:
-                number *= -1
-                negative = False
-            yield number
+            yield int(token)
             expectedNumber = False
         elif token in BRACKETS:
             bracket = BRACKETS[token]

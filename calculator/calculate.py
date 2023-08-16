@@ -17,9 +17,13 @@ def calculate_postfix_notation(tokens: Iterable[int | Operator | Bracket]) -> in
 
     for token in tokens:
         if type(token) == Operator:
-            number2 = stack.pop()
-            number1 = stack.pop()
-            stack.append(token.function(number1, number2))
+            if token.parameters_count == 2:
+                number2 = stack.pop()
+                number1 = stack.pop()
+                stack.append(token.function(number1, number2))
+            elif  token.parameters_count == 1:
+                number1 = stack.pop()
+                stack.append(token.function(number1))
         else:
             stack.append(token)
 
