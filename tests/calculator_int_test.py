@@ -8,7 +8,7 @@ from utils import (
 )
 
 
-class CalculatorTest(unittest.TestCase):
+class CalculatorIntTest(unittest.TestCase):
     def test_empty_string_should_return_zero(self):
         actual = calculate("")
 
