@@ -25,7 +25,7 @@ OPERATORS = {
     "*": Operator(2, operator.mul),
     "/": Operator(2, operator.truediv),
     "^": Operator(3, operator.pow),
-    "neg": Operator(4, operator.neg, 1)
+    "neg": Operator(4, operator.neg, 1),
 }
 
 
