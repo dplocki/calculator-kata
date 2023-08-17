@@ -16,6 +16,14 @@ class CalculatorIntTest(unittest.TestCase):
 
         self.assertEqual(actual, number)
 
+    def test_float_number_in_scientific_notation(self):
+        number = generate_float()
+        value = f"{number:e}"
+
+        actual = calculate(value)
+
+        self.assertAlmostEqual(actual, number, delta=0.001)
+
     def test_operation_on_floats(self):
         operation = OperationNode(
             generate_float(),

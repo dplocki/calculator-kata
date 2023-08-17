@@ -67,13 +67,16 @@ def split_input_string_to_tokens(
 ) -> Generator[str, None, None]:
     yield from filter(
         lambda token: token != None and token.strip() != "",
-        re.split(r"(\d+\.\d+)|(\d+)|([\(\)\-+*/^])", input_value),
+        re.split(
+            r"(\d+\.\d+[eE][\+\-]\d+)|(\d+\.\d+)|(\d+)|([\(\)\-+*/^])", input_value
+        ),
     )
 
 
 def parse_tokens(
     tokens: Iterable[str],
 ) -> Generator[int | Operator | Bracket, None, None]:
+    pattern = re.compile(r"^\d+\.\d+([eE][\+\-]\d+)?$")
     expectedNumber = True
     bracket_counter = 0
 
@@ -86,7 +89,7 @@ def parse_tokens(
         elif token.isdigit() and expectedNumber:
             yield int(token)
             expectedNumber = False
-        elif token.replace(".", "", 1).isdigit() and expectedNumber:
+        elif pattern.match(token) and expectedNumber:
             yield float(token)
             expectedNumber = False
         elif token in BRACKETS:
