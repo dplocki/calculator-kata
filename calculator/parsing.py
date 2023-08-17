@@ -40,6 +40,8 @@ def convert_infix_into_postfix_notation(
     for token in tokens:
         if type(token) == int:
             yield token
+        elif type(token) == float:
+            yield token
         elif type(token) == Bracket:
             if token.opening:
                 operators.append(token)
@@ -63,7 +65,10 @@ def convert_infix_into_postfix_notation(
 def split_input_string_to_tokens(
     input_value: str,
 ) -> Generator[str, None, None]:
-    yield from filter(lambda token: token.strip() != "", re.split("(\W)", input_value))
+    yield from filter(
+        lambda token: token != None and token.strip() != "",
+        re.split(r"(\d+\.\d+)|(\d+)|([\(\)\-+*/^])", input_value),
+    )
 
 
 def parse_tokens(
@@ -80,6 +85,9 @@ def parse_tokens(
             yield OPERATORS["neg"]
         elif token.isdigit() and expectedNumber:
             yield int(token)
+            expectedNumber = False
+        elif token.replace(".", "", 1).isdigit() and expectedNumber:
+            yield float(token)
             expectedNumber = False
         elif token in BRACKETS:
             bracket = BRACKETS[token]

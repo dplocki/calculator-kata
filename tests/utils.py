@@ -7,6 +7,10 @@ def generate_int(maximum=99999):
     return random.randrange(1, maximum)
 
 
+def generate_float(maximum=9999):
+    return random.uniform(1, maximum)
+
+
 def generate_operation():
     return random.choice(["-", "+", "*", "/"])
 
