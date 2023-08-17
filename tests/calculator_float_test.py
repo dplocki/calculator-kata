@@ -3,6 +3,7 @@ from calculator.calculate import calculate
 from utils import (
     OperationNode,
     generate_float,
+    generate_int,
     operation_node_to_result,
     operation_node_to_standard,
 )
@@ -23,6 +24,14 @@ class CalculatorIntTest(unittest.TestCase):
         actual = calculate(value)
 
         self.assertAlmostEqual(actual, number, delta=0.001)
+
+    def test_float_without_leading_zero(self):
+        value = f".{generate_int()}"
+        excepted = float(value)
+
+        actual = calculate(value)
+
+        self.assertEqual(actual, excepted)
 
     def test_operation_on_floats(self):
         operation = OperationNode(
