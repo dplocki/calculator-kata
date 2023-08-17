@@ -1,0 +1,29 @@
+name: Gated Check-In
+
+on:
+  push
+
+jobs:
+
+  run_tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Get sources
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Installing dependencies
+        run: pip install --upgrade pip black --quiet
+
+      - name: Style check
+        run: black . --check
+
+      - name: Running tests
+        run: python -m unittest discover -s tests -p *_test.py
