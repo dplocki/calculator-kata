@@ -10,15 +10,17 @@
 
 The standard [String Calculator](https://codingdojo.org/kata/StringCalculator/) kata is much simpler that this one. The task is to parse the string, find all numbers and calculate the sum. There is also the [RPN calculator](https://codingdojo.org/kata/RPN/) kata, which is closer to it.
 
-This one is the calculator, which is parsing the input (string) as infix notated operation and return its result. In short: you can type the mathematical operation in *human way* and see the result.
+This one is the calculator, which is parsing the input (string) as [infix](https://en.wikipedia.org/wiki/Infix_notation) notated operation and return its result. In short: you can type the mathematical operation in *human way* and see the result.
 
 ## ✔️ Functionality
 
 * adding, subtraction
 * multiple, division
+* negation (minus before some expression)
 * power
 * brackets (the round one only)
-* simple validation
+* float numbers, in simple and scientific notation
+* simple validation (double operators, letters in place of numbers etc.)
 
 ## ⚙️ Run
 
