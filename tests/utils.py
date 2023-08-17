@@ -22,11 +22,15 @@ class OperationNode:
     right: None | type["OperationNode"] | int
 
 
+def is_numeric_value(value: any) -> bool:
+    return type(value) == int or type(value) == float
+
+
 def operation_node_to_standard(node: OperationNode, previous_operator_level=-1) -> str:
-    if type(node) == int:
+    if is_numeric_value(node):
         return str(node)
 
-    if type(node.root) == int:
+    if is_numeric_value(node.root):
         return str(node.root)
 
     operator_level = OPERATORS[node.root].level
@@ -49,10 +53,10 @@ def operation_node_to_standard(node: OperationNode, previous_operator_level=-1) 
 
 
 def operation_node_to_result(node: OperationNode) -> int:
-    if type(node) == int:
+    if is_numeric_value(node):
         return node
 
-    if type(node.root) == int:
+    if is_numeric_value(node.root):
         return node.root
 
     return OPERATORS[node.root].function(
